@@ -1,0 +1,48 @@
+{
+  "manifest_version": 2,
+  "name": "hoax-scanner",
+  "description": "A naive extension that scans your facebook posts, automatically check them and warns you if it contains fake news.",
+  "version": "0.1",
+  "browser_action": {
+    "default_title": "React Chrome Extension Example",
+    "default_popup": "browser_action/popup.html"
+  },
+  "content_scripts": [
+    {
+      "include_globs": [
+        "http://*.facebook.com/*",
+        "http://facebook.com/*",
+        "https://*.facebook.com/*",
+        "https://facebook.com/*"
+      ],
+      "exclude_globs": [
+        "http://*.channel.facebook.com/*",
+        "http://static.*.facebook.com/*",
+        "http://*.facebook.com/ai.php*",
+        "http://*.facebook.com/connect/*",
+        "https://*.channel.facebook.com/*",
+        "https://static.*.facebook.com/*",
+        "https://*.facebook.com/ai.php*",
+        "https://*.facebook.com/connect/*",
+        "https://*.facebook.com/saved*"
+      ],
+      "js": ["jquery.min.js","main.js"],
+      "matches": ["*://*.facebook.com/*"]
+    }
+  ],
+  "background": {
+    "scripts": ["jquery.min.js", "background.js"],
+    "persistent": true
+  },
+  "icons": {
+    "16": "img/icon-16.png",
+    "48": "img/icon-48.png",
+    "128": "img/icon-128.png"
+  },
+  "permissions": [
+    "contextMenus",
+    "https://hoax-scanner.herokuapp.com/*"
+  ],
+  "content_security_policy": "script-src 'self' https://hoax-scanner.herokuapp.com/*; object-src 'self'",
+  "web_accessible_resources": ["img/danger.png", "img/warn.png"]
+}
